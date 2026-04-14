@@ -37,7 +37,7 @@
 
 <script>
 function parseData(text) {
-  let lines = text.split("\n");
+  let lines = text.split(/[\n,]+/);
   let people = [];
 
   for (let line of lines) {
