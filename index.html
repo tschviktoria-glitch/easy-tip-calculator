@@ -37,11 +37,12 @@
 
 <script>
 function parseData(text) {
-  let lines = text.split(/[\n,]+/).map(l => l.trim()).filter(l => l);
+  let entries = text.split(/[\n,]+/);
   let people = [];
 
-  for (let line of lines) {
-    let parts = line.trim().split(/\s+/);
+  for (let entry of entries) {
+    let parts = entry.trim().split(/\s+/);
+
     if (parts.length === 2 && !isNaN(parts[1]) && parts[1] > 0) {
       people.push({
         name: parts[0],
@@ -49,6 +50,7 @@ function parseData(text) {
       });
     }
   }
+
   return people;
 }
 
