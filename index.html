@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trinkgeld Rechner</title>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      padding: 20px;
+    }
+    input, button, textarea {
+      padding: 10px;
+      margin: 8px;
+      width: 90%;
+      max-width: 300px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Trinkgeld Rechner</h2>
+
+<input type="number" id="total" placeholder="Gesamtes Trinkgeld (€)">
+
+<h3>Service (Name Stunden)</h3>
+<textarea id="service" placeholder="Vika 5&#10;Sonya 8"></textarea>
+
+<h3>Küche (Name Stunden)</h3>
+<textarea id="kitchen" placeholder="Anton 4&#10;Habib 8"></textarea>
+
+<button onclick="calc()">Berechnen</button>
+
+<h3>Ergebnis:</h3>
+<div id="result"></div>
+
+<script>
+function parseData(text) {
+  let lines = text.split("\n");
+  let people = [];
+
+  for (let line of lines) {
+    let parts = line.trim().split(" ");
+    if (parts.length === 2) {
+      people.push({
+        name: parts[0],
+        hours: parseFloat(parts[1])
+      });
+    }
+  }
+  return people;
+}
+
+function calc() {
+  let total = parseFloat(document.getElementById("total").value);
+  let service = parseData(document.getElementById("service").value);
+  let kitchen = parseData(document.getElementById("kitchen").value);
+
+  if (!total) {
+    alert("Bitte Trinkgeld eingeben");
+    return;
+  }
+
+  let servicePool = total * 0.8;
+  let kitchenPool = total * 0.2;
+
+  let serviceHours = service.reduce((sum, p) => sum + p.hours, 0);
+  let kitchenHours = kitchen.reduce((sum, p) => sum + p.hours, 0);
+
+  let resultHTML = "<b>Service:</b><br>";
+
+  for (let p of service) {
+    let money = (p.hours / serviceHours) * servicePool;
+    resultHTML += `${p.name}: ${money.toFixed(2)} €<br>`;
+  }
+
+  resultHTML += "<br><b>Küche:</b><br>";
+
+  for (let p of kitchen) {
+    let money = (p.hours / kitchenHours) * kitchenPool;
+    resultHTML += `${p.name}: ${money.toFixed(2)} €<br>`;
+  }
+
+  document.getElementById("result").innerHTML = resultHTML;
+}
+</script>
+
+</body>
+</html>
