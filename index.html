@@ -41,8 +41,8 @@ function parseData(text) {
   let people = [];
 
   for (let line of lines) {
-    let parts = line.trim().split(" ");
-    if (parts.length === 2) {
+    let parts = line.trim().split(/\s+/);
+    if (parts.length === 2 && !isNaN(parts[1]) && parts[1] > 0) {
       people.push({
         name: parts[0],
         hours: parseFloat(parts[1])
@@ -57,16 +57,26 @@ function calc() {
   let service = parseData(document.getElementById("service").value);
   let kitchen = parseData(document.getElementById("kitchen").value);
 
-  if (!total) {
-    alert("Bitte Trinkgeld eingeben");
-    return;
-  }
+  if (isNaN(total) || total <= 0) {
+  alert("Bitte gültiges Trinkgeld eingeben");
+  return;
+}
+  
+  if (service.length === 0 || kitchen.length === 0) {
+  alert("Bitte Service und Küche korrekt eingeben");
+  return;
+}
 
   let servicePool = total * 0.8;
   let kitchenPool = total * 0.2;
 
   let serviceHours = service.reduce((sum, p) => sum + p.hours, 0);
   let kitchenHours = kitchen.reduce((sum, p) => sum + p.hours, 0);
+
+  if (serviceHours === 0 || kitchenHours === 0) {
+  alert("Stunden dürfen nicht 0 sein");
+  return;
+}
 
   let resultHTML = "<b>Service:</b><br>";
 
