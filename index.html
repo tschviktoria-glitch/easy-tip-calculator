@@ -35,6 +35,9 @@
 <h3>Ergebnis:</h3>
 <div id="result"></div>
 
+  <button onclick="showInstall()">App installieren</button>
+  <p id="installHint"></p>
+
 <script>
 function parseData(text) {
   let entries = text.split(/[\n,]+/);
@@ -100,6 +103,20 @@ function calc() {
   }
 
   document.getElementById("result").innerHTML = resultHTML;
+}
+
+function showInstall() {
+  let text = `
+📱 Anleitung:
+
+👉 iPhone:
+Teilen (⎋) → Zum Home-Bildschirm
+
+👉 Android:
+Menü (⋮) → Zum Startbildschirm hinzufügen
+  `;
+
+  document.getElementById("installHint").innerText = text;
 }
 </script>
 
