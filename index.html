@@ -49,8 +49,8 @@ function parseData(text) {
     let parts = entry.trim().split(/\s+/);
 
     if (parts.length >= 2) {
-      let name = parts[0];
-      let hours = parseFloat(parts[1]);
+    let hours = parseFloat(parts.pop().replace(",", "."));
+    let name = parts.join(" ");
 
       if (!isNaN(hours) && hours > 0) {
         people.push({
