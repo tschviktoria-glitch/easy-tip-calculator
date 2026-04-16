@@ -42,7 +42,7 @@
 
 <script>
 function parseData(text) {
-  let entries = text.split(/[\n,]+/);
+  let entries = text.split(/\n+/);
   let people = [];
 
   for (let entry of entries) {
