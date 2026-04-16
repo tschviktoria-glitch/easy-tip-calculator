@@ -25,6 +25,8 @@
 <h2>Trinkgeld Rechner</h2>
 
 <input type="number" id="total" placeholder="Gesamtes Trinkgeld (€)">
+  
+<button onclick="clearFields()" style="background:#eee;">Alles löschen</button>
 
 <h3>Service (Name, Stunden)</h3>
 <textarea id="service" placeholder="Viktoria 5&#10;Jessica 8"></textarea>
@@ -120,6 +122,14 @@ Menü (⋮) → Zum Startbildschirm hinzufügen
 
   document.getElementById("installHint").innerText = text;
 }
+
+  function clearFields() {
+  document.getElementById("total").value = "";
+  document.getElementById("service").value = "";
+  document.getElementById("kitchen").value = "";
+  document.getElementById("result").innerHTML = "";
+}
+  
 </script>
 
 </body>
